@@ -97,8 +97,8 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
       <ScrollView>
         <RestaurantInfoCard restaurant={restaurant} />
         <List.Accordion
-          title="Icecreams"
-          left={(props) => <List.Icon {...props} icon="ice-cream" />}
+          title="Pierwsze Danie"
+          left={(props) => <List.Icon {...props} icon="food-variant" />}
           expanded={breakfastExpanded}
           onPress={() => setBreakfastExpanded(!breakfastExpanded)}
         >
@@ -123,13 +123,13 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
               )
             )
           ) : (
-            <Text>Ta lodziarnia z nami nie współpracuje jeszcze !</Text>
+            <Text>Ta restauracja nie współpracuje jeszcze z nami !</Text>
           )}
         </List.Accordion>
         <Divider />
         <List.Accordion
-          title="MilkShakes"
-          left={(props) => <List.Icon {...props} icon="food-variant" />}
+          title="Drugie danie"
+          left={(props) => <List.Icon {...props} icon="hamburger" />}
           expanded={lunchExpanded}
           onPress={() => setLunchExpanded(!lunchExpanded)}
         >
@@ -158,7 +158,7 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
       <Spacer position="bottom" size="large">
         {restaurant.placeId == userPlaceId ? (
           <TextInput
-            label="Special icecream price"
+            label="Our Special meal price"
             style={{ marginHorizontal: 10, marginVertical: 10 }}
             value={special}
             numeric
