@@ -3,8 +3,6 @@ import { View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
-import * as firebase from 'firebase';
-import { firebaseConfig } from '../../../utils/env';
 
 import { CustomText as Text } from '../../../components/CustomText/CustomText';
 import { AuthenticationContext } from '../../../services/authentication/AuthenticationContext';
@@ -21,35 +19,17 @@ const InnerSnap = styled(View)`
   z-index: 999;
 `;
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-export const CameraScreen = ({ navigation, route }) => {
+export const CameraScreen = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const [hasPermission, setHasPermission] = useState(null);
   const cameraRef = useRef();
-  const { userPlaceId } = route.params;
-
-  console.log(userPlaceId, 'CameraScreen');
 
   const snap = async () => {
     if (cameraRef) {
       const photo = await cameraRef.current.takePictureAsync();
-      await uploadImage(photo.uri, 'bal');
+      AsyncStorage.setItem(`${user.uid}-photo`, photo.uri);
+      navigation.goBack();
     }
-  };
-
-  const uploadImage = async (uri, imageName) => {
-    const date = new Date();
-    const response = await fetch(uri);
-    const blob = await response.blob();
-
-    var ref = firebase
-      .storage()
-      .ref()
-      .child(`${userPlaceId}/` + date.getTime());
-    return ref.put(blob);
   };
 
   useEffect(() => {
@@ -69,23 +49,11 @@ export const CameraScreen = ({ navigation, route }) => {
   return (
     <ProfileCamera
       ref={(camera) => (cameraRef.current = camera)}
-      type={Camera.Constants.Type.back}
+      type={Camera.Constants.Type.front}
     >
-      <InnerSnap>
-        {/* <TouchableOpacity  /> */}
-        <TouchableOpacity
-          onPress={snap}
-          style={{
-            position: 'absolute',
-            width: 70,
-            height: 70,
-            bottom: 0,
-            borderRadius: 50,
-            backgroundColor: '#fff',
-            alignSelf: 'center',
-          }}
-        />
-      </InnerSnap>
+      <TouchableOpacity onPress={snap}>
+        <InnerSnap />
+      </TouchableOpacity>
     </ProfileCamera>
   );
 };

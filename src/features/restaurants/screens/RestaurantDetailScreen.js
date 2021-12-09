@@ -33,9 +33,7 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
   const { addToCart } = useContext(CartContext);
 
   const { restaurant, userPlaceId } = route.params;
-  // console.log(special, 'restaurant resDet');
-  // console.log(userPlaceId, 'restaurant resDet');
-
+  // console.log(userPlaceId)
   var db = firebase.firestore();
 
   useEffect(() => {
@@ -51,7 +49,7 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
               setMilkshake(result.milkshake);
               setSpecial(result.Special);
             }
-            // console.log(querySnapshot.data())
+            console.log(querySnapshot.data());
           });
       }
     };
@@ -133,7 +131,7 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
           expanded={lunchExpanded}
           onPress={() => setLunchExpanded(!lunchExpanded)}
         >
-          {milkshake.length &&
+          {milkshake.length ? (
             milkshake?.map((el, key) =>
               restaurant.placeId == userPlaceId ? (
                 <View key={key}>
@@ -152,7 +150,10 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
                   <Divider />
                 </View>
               )
-            )}
+            )
+          ) : (
+            <Text>Ta restauracja nie współpracuje jeszcze z nami !</Text>
+          )}
         </List.Accordion>
       </ScrollView>
       <Spacer position="bottom" size="large">

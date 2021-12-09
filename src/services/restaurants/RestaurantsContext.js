@@ -30,7 +30,9 @@ export const RestaurantsContextProvider = ({ children }) => {
       .where('icecreams', 'array-contains-any', [iceCream.trim().toLowerCase()])
       .get()
       .then((querySnapshot) => {
+        // console.log(querySnapshot);
         querySnapshot.forEach((documentSnapshot) => {
+          // console.log(documentSnapshot.id);
           restaurantsId.push(documentSnapshot.id);
         });
         // console.log(restaurantsId);
