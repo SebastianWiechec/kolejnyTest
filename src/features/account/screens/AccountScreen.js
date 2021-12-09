@@ -21,10 +21,10 @@ export const AccountScreen = ({ navigation }) => {
           resizeMode="cover"
           autoPlay
           loop
-          source={require('../../../../assets/animations/ice-cream-lot.json')}
+          source={require('../../../../assets/animations/restaurant.json')}
         />
       </LottieAnimationWrapper>
-      <Title variant="caption">Icespotting</Title>
+      <Title variant="caption">Mniamciu</Title>
       <AccountContainer>
         <AuthButton
           icon="lock-open-outline"

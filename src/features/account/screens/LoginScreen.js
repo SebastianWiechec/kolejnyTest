@@ -23,7 +23,7 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <AccountBackground>
       <AccountCover />
-      <Title variant="caption">Icespotting</Title>
+      <Title variant="caption">Mniamciu</Title>
       <AccountContainer>
         <AuthInput
           label="E-mail"
